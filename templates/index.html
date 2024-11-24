@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Calculadora con GLC</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+    <div class="main-container">
+        <div class="calculator">
+            <input type="text" id="display" disabled>
+            <div class="buttons">
+                <button onclick="addToExpression('(')"> ( </button>
+                <button onclick="addToExpression(')')"> ) </button>
+                <button onclick="clearDisplay()"> C </button>
+              
+              
+            
+                <button onclick="backspace()"> ⌫ </button>
+                <button onclick="addToExpression('7')"> 7 </button>
+                <button onclick="addToExpression('8')"> 8 </button>
+                <button onclick="addToExpression('9')"> 9 </button>
+
+                
+                <button onclick="addToExpression('/')"> / </button>
+                <button onclick="addToExpression('4')"> 4 </button>
+                <button onclick="addToExpression('5')"> 5 </button>
+                <button onclick="addToExpression('6')"> 6 </button>
+
+                
+                <button onclick="addToExpression('*')"> * </button>
+                <button onclick="addToExpression('1')"> 1 </button>
+                <button onclick="addToExpression('2')"> 2 </button>
+                <button onclick="addToExpression('3')"> 3 </button>
+
+                
+                <button onclick="addToExpression('-')"> - </button>
+
+                
+                <button onclick="addToExpression('0')"> 0 </button>
+                <button onclick="addToExpression('.')"> . </button>
+                <button onclick="addToExpression('+')"> + </button>
+
+
+                <button onclick="calculate()"> = </button>
+                <button onclick="saveResult()"> MC </button>
+            </div>            
+        </div>
+        <div class="tree-display">
+            <h2>Árbol:</h2>
+            <svg id="tree" width="400" height="500"></svg>
+        </div>
+        <div class="results">
+            <h2>Desglose de Tokens</h2>
+            <table id="tokens-table" border="1">
+            </table>
+        
+            <h2>Resumen de Tokens</h2>
+            <table id="summary-table" border="1">
+            </table>
+        </div>
+        
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

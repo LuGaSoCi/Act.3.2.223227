@@ -1,0 +1,445 @@
+/* Variables para un diseño oscuro y moderno */
+:root {
+    --background: #2a2a2a;
+    --screen-bg: #383838;
+    --btn-default: #4a4a4a;
+    --btn-hover: #5a5a5a;
+    --btn-operators: #ffa500;
+    --btn-equal: #007bff;
+    --btn-clear: #ff4444;
+    --btn-text: #fff;
+    --btn-text-operators: #000;
+    --btn-border-radius: 8px;
+}
+
+
+/* Reset y estilos base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    background-color: var(--background);
+    color: var(--text-primary);
+    min-height: 50vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    line-height: 1.6;
+    width: 100%;
+    max-height: 70%;
+}
+
+/* Layout principal con efecto de glass morphism */
+.main-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 0.5rem;
+    max-width: 1350px;
+    width: 90%;
+    margin: 0 auto;
+    padding: 2rem;
+    position: relative;
+    max-height: 70%;
+}
+
+/* Estilos de la calculadora */
+.calculator {
+    background: #2e2e2e; /* Color de fondo similar al de la imagen */
+    border-radius: 20px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease-in-out;
+    width: 360px; /* Tamaño ajustado */
+    height: 520px; /* Altura ajustada para que todo quepa */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; /* Asegura que los elementos no se desborden */
+}
+
+/* Estilos del display */
+#display {
+    width: 95%; /* Ajusta el ancho del display para que no se desborde */
+    height: 70px; /* Altura ajustada para mantener proporción */
+    font-size: 1.8rem; /* Texto más grande */
+    font-weight: bold;
+    text-align: right;
+    padding: 0.5rem 1rem;
+    margin-bottom: 1rem;
+    border: none;
+    border-radius: 10px;
+    background-color: #212121; /* Fondo oscuro */
+    color: #ffffff; /* Texto blanco */
+    box-sizing: border-box; /* Incluye el padding y border en el tamaño total */
+}
+
+/* Grid de botones */
+.buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px; /* Espaciado ajustado entre botones */
+    width: 100%; /* Asegura que el grid no se salga de la calculadora */
+}
+
+/* Botones básicos */
+button {
+    font-size: 1.4rem; /* Texto más grande */
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+    padding: 1rem; /* Botones más grandes */
+    background: #424242; /* Fondo oscuro */
+    color: #ffffff; /* Texto blanco */
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+/* Botones hover */
+button:hover {
+    background: #616161; /* Fondo más claro al pasar el mouse */
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Botones funcionales específicos */
+button:nth-child(4), /* Botón "C" */
+button[onclick*="'+'"], 
+button[onclick*="'-'"], 
+button[onclick*="'*'"], 
+button[onclick*="'/'"] {
+    background: #f9a825; /* Amarillo para los operadores */
+    color: #000; /* Texto negro */
+}
+
+button:nth-child(4):hover,
+button[onclick*="'+'"]:hover, 
+button[onclick*="'-'"]:hover, 
+button[onclick*="'*'"]:hover, 
+button[onclick*="'/'"]:hover {
+    background: #fbc02d; /* Amarillo más claro al pasar el mouse */
+}
+
+/* Botón igual */
+button[onclick*="calculate()"] {
+    background: #2196f3; /* Azul para el botón igual */
+    color: #fff;
+    font-weight: bold;
+}
+
+button[onclick*="calculate()"]:hover {
+    background: #42a5f5; /* Azul más claro */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Área del árbol mejorada */
+.tree-display {
+    background: #2e2e2e; /* Fondo oscuro para hacer juego con la calculadora */
+    border-radius: 20px;
+    padding: 1rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* Título del árbol */
+.tree-display h2 {
+    color: #ffffff; /* Texto blanco */
+    margin-bottom: 1rem;
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+/* Contenedor del SVG */
+.tree-container {
+    flex: 1;
+    overflow: auto;
+    position: relative;
+    min-height: 100px;
+    padding: 10px;
+    background: #424242; /* Fondo oscuro similar a los botones */
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Estilos del SVG mejorados */
+svg {
+    width: 100%;
+    height: 100%;
+    min-height: 500px;
+    background: transparent;
+    padding: 5px;
+}
+
+/* Estilos para nodos del árbol */
+.tree-node {
+    fill: #ffa500; /* Naranja para los nodos */
+    stroke: #424242; /* Borde oscuro para contraste */
+    stroke-width: 2;
+    transition: fill 0.3s ease, transform 0.2s ease;
+}
+
+.tree-node:hover {
+    fill: #ffcc80; /* Naranja más claro al pasar el mouse */
+    transform: scale(1.1); /* Efecto de aumento al pasar el mouse */
+}
+
+/* Texto dentro de los nodos */
+.tree-text {
+    fill: #000000; /* Texto negro para mayor contraste con el naranja */
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* Estilos para enlaces del árbol */
+.tree-link {
+    stroke: #ffa500; /* Naranja para los enlaces */
+    stroke-width: 2;
+    opacity: 0.8;
+    transition: stroke 0.3s ease;
+}
+
+/* Enlaces hover */
+.tree-link:hover {
+    stroke: #ffcc80; /* Naranja más claro al pasar el mouse */
+    opacity: 1;
+}
+
+/* Controles de zoom */
+.tree-controls {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    background: #424242; /* Fondo oscuro */
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.tree-controls button {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    background: #616161; /* Fondo gris similar */
+    color: #ffffff; /* Texto blanco */
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.tree-controls button:hover {
+    background: #2196f3; /* Azul similar al botón igual */
+    color: white;
+}
+
+/* Área de resultados */
+.results {
+    background: #2e2e2e; /* Fondo oscuro para hacer juego */
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.results h2 {
+    color: #ffffff; /* Texto blanco */
+    margin-bottom: 1rem;
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+
+/* Estilos de tablas modernizados */
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-bottom: 2rem;
+    border-radius: 10px; /* Bordes redondeados */
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Sombra suave */
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Bordes */
+    background: #424242; /* Fondo oscuro similar al diseño */
+}
+
+/* Encabezados de tabla */
+th {
+    background: #ffa500; /* Naranja para el fondo del encabezado */
+    padding: 1.25rem;
+    text-align: left;
+    font-weight: bold;
+    color: #000000; /* Texto negro para contraste */
+    border-bottom: 2px solid rgba(255, 255, 255, 0.1); /* Línea divisoria */
+    font-size: 1.2rem;
+}
+
+/* Celdas */
+td {
+    padding: 1.25rem;
+    background: #616161; /* Gris oscuro para las celdas */
+    color: #ffffff; /* Texto blanco */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05); /* Línea divisoria */
+    font-size: 1rem;
+}
+
+/* Última fila sin borde inferior */
+tr:last-child td {
+    border-bottom: none;
+}
+
+/* Efecto hover en filas */
+tr:hover td {
+    background: #ffa500; /* Naranja al pasar el mouse */
+    color: #000000; /* Texto negro para contraste */
+}
+
+/* Bordes en la tabla */
+table,
+th,
+td {
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+
+
+/* Scrollbar personalizado */
+.tree-container::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.tree-container::-webkit-scrollbar-track {
+    background: var(--surface-dark);
+    border-radius: 4px;
+}
+
+.tree-container::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 4px;
+}
+
+.tree-container::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-light);
+}
+
+/* Estilos para zoom y pan */
+svg.pannable {
+    cursor: grab;
+}
+
+svg.pannable:active {
+    cursor: grabbing;
+}
+
+.zoom-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+/* Pantalla completa */
+.tree-display.fullscreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
+    margin: 0;
+    border-radius: 0;
+    padding: 2rem;
+}
+
+.fullscreen-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    padding: 0.5rem;
+    background: var(--surface-dark);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-md);
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.fullscreen-btn:hover {
+    background: var(--primary);
+    color: white;
+}
+
+/* Media queries */
+@media (max-width: 768px) {
+    .main-container {
+        grid-template-columns: 1fr;
+        padding: 1rem;
+        gap: 1.5rem;
+    }
+
+    .calculator, .tree-display, .results {
+        padding: 1.5rem;
+    }
+
+    button {
+        padding: 1rem;
+        font-size: 1.125rem;
+    }
+
+    #display {
+        height: 70px;
+        font-size: 1.75rem;
+        padding: 1rem;
+    }
+
+    .tree-display {
+        min-height: 400px;
+    }
+
+    .tree-container {
+        min-height: 550px;
+    }
+
+    svg {
+        min-height: 350px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .tree-display {
+        min-height: 800px;
+    }
+
+    .tree-container {
+        min-height: 700px;
+    }
+
+    svg {
+        min-height: 700px;
+    }
+}
+
+/* Animaciones */
+@keyframes buttonPress {
+    0% { transform: scale(1); }
+    40% { transform: scale(0.95); }
+    100% { transform: scale(1); }
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+button:active {
+    animation: buttonPress 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
